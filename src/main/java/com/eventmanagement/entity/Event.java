@@ -18,7 +18,7 @@ public class Event {
     private String eventName;
     private String location;
     private String organizer;
-    private String numberOfAttendees;
+    private int numberOfAttendees;
     private LocalDateTime dateTime;
     private int duration;
     @ManyToOne

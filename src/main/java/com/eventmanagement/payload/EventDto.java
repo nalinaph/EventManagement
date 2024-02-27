@@ -9,13 +9,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventDto {
-    //private long EventId;
+    private long EventId;
     private String eventName;
     private String location;
     private String organizer;
-   private String numberOfAttendees;
+   private int numberOfAttendees;
    private LocalDateTime dateTime;
     private int duration;
+    private long userId;
 
 
 }
