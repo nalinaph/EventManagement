@@ -16,8 +16,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String userFirstname;
-    private String userLastname;
+    private String userFirstName;
+    private String userLastName;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Event> events;
 

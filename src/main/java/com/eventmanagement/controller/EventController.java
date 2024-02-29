@@ -40,8 +40,8 @@ public class EventController{
     }
     @GetMapping("/eventsrange")
     public ResponseEntity<List<EventDto>> getEventsByDateAndDurationRange(
-            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
-            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime endDate,
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam("minDuration") int minDuration,
             @RequestParam("maxDuration") int maxDuration) {
         List<EventDto> eventsByDateAndDurationRange = eventService.getEventsByDateAndDurationRange(startDate, endDate, minDuration, maxDuration);
@@ -53,6 +53,12 @@ public class EventController{
     {
         List<EventDto> eventsByAttendeesAndOrganizer = eventService.getEventsByOrganizerAndAttendees(organizer,numberOfAttendees);
         return new ResponseEntity<>(eventsByAttendeesAndOrganizer, HttpStatus.OK);
+    }
+    @GetMapping("/events-count-by-user")
+    public List<Object[]> getEventsCountByUserAndDateInRange(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return eventService.getEventsCountByUserAndDateInRange(startDate, endDate);
     }
 
 

@@ -12,7 +12,9 @@ public interface EventService{
     EventDto createEvent(EventDto eventDto,long userId) ;
     EventDto getEventDetailById(long eventId);
     List<EventDto> findAllEvents();
-    List<EventDto> getEventsByDateAndDurationRange(LocalDateTime startDate, LocalDateTime endDate, int minDuration, int maxDuration);
+    List<EventDto> getEventsByDateAndDurationRange(LocalDate startDate, LocalDate endDate, int minDuration, int maxDuration);
 
     List<EventDto> getEventsByOrganizerAndAttendees(String organizer,int numberOfAttendees);
+
+    List<Object[]> getEventsCountByUserAndDateInRange(LocalDate startDate, LocalDate endDate);
 }

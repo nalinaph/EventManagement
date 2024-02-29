@@ -66,7 +66,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDto> getEventsByDateAndDurationRange(LocalDateTime startDate, LocalDateTime endDate, int minDuration, int maxDuration) {
+    public List<EventDto> getEventsByDateAndDurationRange(LocalDate startDate, LocalDate endDate, int minDuration, int maxDuration) {
 
         List<Event> events = eventRepository.findByDateTimeAndDurationRange(startDate, endDate, minDuration, maxDuration);
        if(events!=null)
@@ -76,11 +76,16 @@ public class EventServiceImpl implements EventService {
            return null;
     }
 
+
+
     public List<EventDto> getEventsByOrganizerAndAttendees(String organizer,int numberOfAttendees)
     {
         List<Event> list = eventRepository.findByOrganizerAndNumberOfAttendees(organizer, numberOfAttendees);
         List<EventDto> allEventsByOrgAtten = list.stream().map(this::mapToDto).toList();
         return allEventsByOrgAtten;
+    }
+    public List<Object[]> getEventsCountByUserAndDateInRange(LocalDate startDate, LocalDate endDate) {
+        return eventRepository.findEventsCountByUserAndDateInRange(startDate, endDate);
     }
 
 
