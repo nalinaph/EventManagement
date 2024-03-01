@@ -3,6 +3,7 @@ package com.eventmanagement.service;
 import com.eventmanagement.entity.Event;
 //import com.eventmanagement.payload.AllEventDto;
 import com.eventmanagement.payload.EventDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,4 +25,7 @@ public interface EventService {
     List<Object[]> getEventsCountByUserAndDateInRange(LocalDate startDate, LocalDate endDate);
 
     EventDto updateEvent(long eventId, EventDto updatedEventDto);
+
+    void deleteEvent(long eventId);
+
 }

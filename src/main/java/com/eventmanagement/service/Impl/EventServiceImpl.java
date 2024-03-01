@@ -130,6 +130,19 @@ public class EventServiceImpl implements EventService {
         return mapToDto(updatedEvent);
     }
 
+    // Delete Event Method
+    @Override
+    public void deleteEvent(long eventId) {
+
+        Event deleteEvent = eventRepository.findById(eventId).orElseThrow(
+                () -> new ResourceNotFoundException("Event Id not found"));
+        if (deleteEvent != null) {
+
+            eventRepository.deleteById(eventId);
+        }
+
+    }
+
 
     // Using ModelMapper to copy object for DTO to Entity and vice versa
     public Event mapToEntity(EventDto eventDto) {

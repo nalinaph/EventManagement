@@ -104,4 +104,15 @@ public class EventController {
     }
 
 
+    // Delete Event Method
+    //API url example : http://localhost:8080/api/events/2
+    // Here replace number "2" with eventId which is stored in DB table
+    @DeleteMapping("/{eventId}")
+
+    public ResponseEntity<String> deleteEvent(@PathVariable long eventId) {
+        eventService.deleteEvent(eventId);
+        return new ResponseEntity<>("Event is deleted", HttpStatus.OK);
+    }
+
+
 }
