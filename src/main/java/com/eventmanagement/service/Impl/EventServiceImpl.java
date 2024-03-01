@@ -36,18 +36,16 @@ public class EventServiceImpl implements EventService {
         this.modelMapper = modelMapper;
     }
 
-
     @Override
     public EventDto createEvent(EventDto eventDto, long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-         ()-> new ResourceNotFoundException("User does not exist with ID:  "+userId));
+                ()-> new ResourceNotFoundException("User does not exist with ID:  "+userId));
         Event event = new Event();
         event = mapToEntity(eventDto);
-        //  event.setUser(user);
+         event.setUser(user);
 
         Event eventsaved = eventRepository.save(event);
-        return mapToDto(eventsaved);
-    }
+        return mapToDto(eventsaved);    }
 
     @Override
     public EventDto getEventDetailById(long eventId) {

@@ -21,8 +21,8 @@ public class EventController{
     @Autowired
     EventService eventService;
 
-    @PostMapping("/{userId}")
-    public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventDto, @PathVariable long userId)
+    @PostMapping
+    public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventDto, @RequestParam long userId)
     {
         EventDto edto = eventService.createEvent(eventDto, userId);
         return new ResponseEntity<>(edto, HttpStatus.CREATED);

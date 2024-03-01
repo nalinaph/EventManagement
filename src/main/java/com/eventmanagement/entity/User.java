@@ -12,11 +12,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name ="user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long userId;
     private String userFirstName;
     private String userLastName;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
