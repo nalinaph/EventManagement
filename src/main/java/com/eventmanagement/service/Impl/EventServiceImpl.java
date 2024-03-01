@@ -29,71 +29,86 @@ public class EventServiceImpl implements EventService {
     ModelMapper modelMapper;
 
 
-
     public EventServiceImpl(EventRepository eventRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
+    //  Create Event Method
+
     @Override
     public EventDto createEvent(EventDto eventDto, long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                ()-> new ResourceNotFoundException("User does not exist with ID:  "+userId));
+                () -> new ResourceNotFoundException("User does not exist with ID:  " + userId));
         Event event = new Event();
         event = mapToEntity(eventDto);
-         event.setUser(user);
+        event.setUser(user);
 
         Event eventsaved = eventRepository.save(event);
-        return mapToDto(eventsaved);    }
+        return mapToDto(eventsaved);
+    }
+
+    // Get Event Detail By Id
 
     @Override
     public EventDto getEventDetailById(long eventId) {
         Event event = new Event();
         event = eventRepository.findById(eventId).orElseThrow(
-                ()-> new ResourceNotFoundException("Event not found with Id "+eventId));
-        return  mapToDto(event);
+                () -> new ResourceNotFoundException("Event not found with Id " + eventId));
+        return mapToDto(event);
     }
+
+    // Displays all the events in the table
 
     @Override
     public List<EventDto> findAllEvents() {
         List<Event> allEvents = eventRepository.findAll();
         List<EventDto> list = allEvents.stream().map(this::mapToDto).toList();
-        return list;    }
+        return list;
+    }
+
+    // Get Events within particual Date and Duration range
 
     @Override
     public List<EventDto> getEventsByDateAndDurationRange(LocalDate startDate, LocalDate endDate, int minDuration, int maxDuration) {
         List<Event> events = eventRepository.findByDateTimeAndDurationRange(startDate, endDate, minDuration, maxDuration);
-        if(events!=null && !events.isEmpty())
+        if (events != null && !events.isEmpty())
 
             return events.stream().map(this::mapToDto).toList();
-        else
-        {
+        else {
             return Collections.emptyList();
 
-        }    }
+        }
+    }
+
+    // Get events of particular Oraganizer and Number of attendees
 
     @Override
     public List<EventDto> getEventsByOrganizerAndAttendees(String organizer, int numberOfAttendees) {
         List<Event> list = eventRepository.findByOrganizerAndNumberOfAttendees(organizer, numberOfAttendees);
-        if(list!=null && !list.isEmpty())
+        if (list != null && !list.isEmpty())
 
             return list.stream().map(this::mapToDto).toList();
-        else
-        {
+        else {
             return Collections.emptyList();
 
-        }    }
+        }
+    }
+
+    // This method displays First Name, Last Name of user and date of event and attendees count
+    // Need to modify this method
 
     @Override
     public List<Object[]> getEventsCountByUserAndDateInRange(LocalDate startDate, LocalDate endDate) {
         return eventRepository.findEventsCountByUserAndDateInRange(startDate, endDate);
     }
 
+    // Updating Event fields : Event Name, Location, Organizer, DateTime, Duration
     @Override
     public EventDto updateEvent(long eventId, EventDto updatedEventDto) {
         Event event = eventRepository.findById(eventId).orElseThrow(
-                ()-> new ResourceNotFoundException("EventId" +updatedEventDto +"does not exist to update"));
+                () -> new ResourceNotFoundException("EventId" + updatedEventDto + "does not exist to update"));
         if (updatedEventDto.getEventName() != null) {
             event.setEventName(updatedEventDto.getEventName());
         }
@@ -116,15 +131,15 @@ public class EventServiceImpl implements EventService {
     }
 
 
-public Event mapToEntity(EventDto eventDto)
-{
-    Event event = modelMapper.map(eventDto, Event.class);
-    return event;
-}
-public EventDto mapToDto(Event event)
-{
-    EventDto eventDto = modelMapper.map(event, EventDto.class);
-    return eventDto;
-}
+    // Using ModelMapper to copy object for DTO to Entity and vice versa
+    public Event mapToEntity(EventDto eventDto) {
+        Event event = modelMapper.map(eventDto, Event.class);
+        return event;
+    }
+
+    public EventDto mapToDto(Event event) {
+        EventDto eventDto = modelMapper.map(event, EventDto.class);
+        return eventDto;
+    }
 }
 

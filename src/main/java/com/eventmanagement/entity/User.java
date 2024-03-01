@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.UUID;
 
+// User Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +21,6 @@ public class User {
     private String userLastName;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Event> events;
-
 
 
 }

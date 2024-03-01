@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+
+//  Event Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

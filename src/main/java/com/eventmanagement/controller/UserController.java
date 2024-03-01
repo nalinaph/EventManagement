@@ -16,9 +16,12 @@ public class UserController {
 
     @Autowired
     UserService userService;
-@PostMapping
-    public ResponseEntity<UserDto> createPost(@RequestBody UserDto userDto)
-    {
+
+    // Method to create user
+
+    //API url example http://localhost:8080/api/user
+    @PostMapping
+    public ResponseEntity<UserDto> createPost(@RequestBody UserDto userDto) {
         UserDto dto = userService.createUser(userDto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }

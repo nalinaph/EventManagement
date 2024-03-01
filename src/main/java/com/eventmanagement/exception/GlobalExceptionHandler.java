@@ -2,6 +2,7 @@ package com.eventmanagement.exception;
 
 //import com.myblog.myblog3.payload.ErrorDetails;
 //import com.myblog.myblog3.payload.ErrorDetails;
+
 import com.eventmanagement.payload.ErrorDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorDetails> handleResourceNotFoundException(
             ResourceNotFoundException e,
             WebRequest webRequest
-    )
-    {
-        ErrorDetails errorDetails = new ErrorDetails(e.getMessage(),new Date(),webRequest.getDescription(true));
+    ) {
+        ErrorDetails errorDetails = new ErrorDetails(e.getMessage(), new Date(), webRequest.getDescription(true));
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

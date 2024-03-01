@@ -10,14 +10,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface EventService{
-    EventDto createEvent(EventDto eventDto,long userId);
+public interface EventService {
+    EventDto createEvent(EventDto eventDto, long userId);
+
     EventDto getEventDetailById(long eventId);
+
     List<EventDto> findAllEvents();
+
     List<EventDto> getEventsByDateAndDurationRange(LocalDate startDate, LocalDate endDate, int minDuration, int maxDuration);
 
-    List<EventDto> getEventsByOrganizerAndAttendees(String organizer,int numberOfAttendees);
+    List<EventDto> getEventsByOrganizerAndAttendees(String organizer, int numberOfAttendees);
 
     List<Object[]> getEventsCountByUserAndDateInRange(LocalDate startDate, LocalDate endDate);
-    EventDto updateEvent(long eventId,EventDto updatedEventDto);
+
+    EventDto updateEvent(long eventId, EventDto updatedEventDto);
 }

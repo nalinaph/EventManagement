@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
-   // @Query("SELECT new com.eventmanagement.payload.AllEventDto(e.eventId, e.eventName, e.location, e.user.id) FROM Event e")
+    // @Query("SELECT new com.eventmanagement.payload.AllEventDto(e.eventId, e.eventName, e.location, e.user.id) FROM Event e")
 
-   // List<AllEventDto> findAllEvents();
+    // List<AllEventDto> findAllEvents();
 
 
     //List<Event> findByDateBetweenAndDurationBetween(LocalDateTime startDate, LocalDateTime endDate, int minDuration, int maxDuration);
@@ -36,11 +36,10 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 //            "GROUP BY e.user.userFirstName, e.user.userLastName, DATE(e.dateTime)")
 
 
-@Query("SELECT e.user.userFirstName, e.user.userLastName, DATE(e.dateTime), e.numberOfAttendees " +
-        "FROM Event e " +
-        "WHERE DATE(e.dateTime) BETWEEN :startDate AND :endDate " +
-        "GROUP BY e.user.userFirstName, e.user.userLastName, DATE(e.dateTime), e.numberOfAttendees")
-
+    @Query("SELECT e.user.userFirstName, e.user.userLastName, DATE(e.dateTime), e.numberOfAttendees " +
+            "FROM Event e " +
+            "WHERE DATE(e.dateTime) BETWEEN :startDate AND :endDate " +
+            "GROUP BY e.user.userFirstName, e.user.userLastName, DATE(e.dateTime), e.numberOfAttendees")
     List<Object[]> findEventsCountByUserAndDateInRange(
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);

@@ -23,20 +23,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-       // User user = mapToEntity(userDto);
         User user = userRepository.save(mapToEntity(userDto));
         return mapToDto(user);
-        //User user1 = userRepository.save(user);
 
     }
 
-    public User mapToEntity(UserDto userDto)
-    {
+    // Using ModelMapper to copy object for DTO to Entity and vice versa
+
+
+    public User mapToEntity(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
         return user;
     }
-    public UserDto mapToDto(User user)
-    {
+
+    public UserDto mapToDto(User user) {
         UserDto userDto = modelMapper.map(user, UserDto.class);
         return userDto;
     }
