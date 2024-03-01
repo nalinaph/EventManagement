@@ -19,7 +19,7 @@ Apache Maven
 MySQL database server
 Spring Boot : 3.2.3
 
-Steps:
+**Steps**:
 
 S1:**Clone the repository** : git clone <https://github.com/nalinaph/EventManagement.git>    Note: branch name: master
 
@@ -49,17 +49,18 @@ Json object :
 }
 
 3. Get event detail by Id(GET) : http://localhost:8080/api/events?eventId=3  
-                                                    (Here replace eventId=3 with an userId which is in your DB table)
+ (Here replace eventId=3 with an userId which is in your DB table)
 
 4. Get all events(GET) : http://localhost:8080/api/events/allEvents
 
 5. Events Between Date and Time range(GET):http://localhost:8080/api/events/eventsrange?startDate=2024-01-21&endDate=2024-05-25&minDuration=6&maxDuration=17
-                                                                             (Here replace date and duration as per table data)
+ (Here replace date and duration as per table data)
 
 6. Events ByOrganizerAnd Attendees(GET) :http://localhost:8080/api/events/filteredevents?organizer=Ninada Events&numberOfAttendees=1510
                                                                       (Here replace organiser and number of attendees as per table data)
 
-7.Update Event(PUT): http://localhost:8080/api/events?eventId=2  (Here replace eventId=3 with an userId which is in your DB table)
+7.Update Event(PUT): http://localhost:8080/api/events?eventId=2  
+(Here replace eventId=3 with an userId which is in your DB table)
 
 Json object :
 {
@@ -72,12 +73,10 @@ Json object :
 }
 
 8. Daily attendees count by date(GET) : http://localhost:8080/api/events/dailyattendeescount?startDate=2024-01-28&endDate=2024-05-20
-                                                (Here replace date range as per table data)
+    (Here replace date range as per table data)
 
 9. Delete Event(DELETE) : http://localhost:8080/api/events/12
-                                         (Here replace 12 with event Id which is in DB table)
-
-
+   (Here replace 12 with event Id which is in DB table)
 
 Dependencies:
 1.  MYSQL Driver
