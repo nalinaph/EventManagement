@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.*;
 import java.util.List;
 
+import static org.apache.logging.log4j.ThreadContext.isEmpty;
+
 @RestController
-@RequestMapping("/api/events")
+    @RequestMapping("/api/events")
 public class EventController{
     @Autowired
     EventService eventService;
@@ -39,26 +41,48 @@ public class EventController{
 
     }
     @GetMapping("/eventsrange")
-    public ResponseEntity<List<EventDto>> getEventsByDateAndDurationRange(
+    public ResponseEntity<?> getEventsByDateAndDurationRange(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam("minDuration") int minDuration,
             @RequestParam("maxDuration") int maxDuration) {
         List<EventDto> eventsByDateAndDurationRange = eventService.getEventsByDateAndDurationRange(startDate, endDate, minDuration, maxDuration);
-       return new ResponseEntity<>(eventsByDateAndDurationRange,HttpStatus.OK);
+       if(!eventsByDateAndDurationRange.isEmpty())
+        return new ResponseEntity<>(eventsByDateAndDurationRange,HttpStatus.OK);
+       else {
+           String message = "No events found within the specified criteria.";
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+       }
+
     }
     @GetMapping("/filteredevents")
-    public ResponseEntity<List<EventDto>> getEventsByOganizerAndAttendees(
+    public ResponseEntity<?> getEventsByOganizerAndAttendees(
             @RequestParam String organizer,@RequestParam int numberOfAttendees)
     {
         List<EventDto> eventsByAttendeesAndOrganizer = eventService.getEventsByOrganizerAndAttendees(organizer,numberOfAttendees);
-        return new ResponseEntity<>(eventsByAttendeesAndOrganizer, HttpStatus.OK);
+        if(!eventsByAttendeesAndOrganizer.isEmpty())
+            return new ResponseEntity<>(eventsByAttendeesAndOrganizer,HttpStatus.OK);
+        else {
+            String message = "No events found within the specified criteria.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+
+
+        // return new ResponseEntity<>(eventsByAttendeesAndOrganizer, HttpStatus.OK);
     }
     @GetMapping("/events-count-by-user")
     public List<Object[]> getEventsCountByUserAndDateInRange(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return eventService.getEventsCountByUserAndDateInRange(startDate, endDate);
+    }
+
+    @PutMapping
+    public ResponseEntity<EventDto> updateEvent(@RequestParam long eventId,@RequestBody EventDto updatedEventDto)
+    {
+        EventDto dto = eventService.updateEvent(eventId,updatedEventDto);
+        return new ResponseEntity<>(dto,HttpStatus.OK);
+
     }
 
 
