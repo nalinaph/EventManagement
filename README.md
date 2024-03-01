@@ -12,6 +12,7 @@ Data persistence using MySQL database.
 
 
 **Prerequisites**
+
 Before running the project, ensure you have the following installed:
 
 Java Development Kit (JDK)
