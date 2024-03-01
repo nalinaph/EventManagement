@@ -96,13 +96,16 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-    // This method displays First Name, Last Name of user and date of event and attendees count
-    // Need to modify this method
+
+    // This method displays First Name, Last Name, daily attendees by date
 
     @Override
     public List<Object[]> getEventsCountByUserAndDateInRange(LocalDate startDate, LocalDate endDate) {
-        return eventRepository.findEventsCountByUserAndDateInRange(startDate, endDate);
+
+        List<Object[]> dailyAttendeesCount = eventRepository.getDailyAttendeesCount();
+        return dailyAttendeesCount;
     }
+
 
     // Updating Event fields : Event Name, Location, Organizer, DateTime, Duration
     @Override

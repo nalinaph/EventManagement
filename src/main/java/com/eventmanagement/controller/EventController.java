@@ -83,15 +83,6 @@ public class EventController {
 
     }
 
-    // This method displays First Name, Last Name of user and date of event and attendees count
-    // Need to modify this method
-    // API url example : http://localhost:8080/api/events/events-count-by-user?startDate=2024-01-23&endDate=2024-05-25
-    @GetMapping("/events-count-by-user")
-    public List<Object[]> getEventsCountByUserAndDateInRange(
-            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return eventService.getEventsCountByUserAndDateInRange(startDate, endDate);
-    }
 
     // Updating Event fields : Event Name, Location, Organizer, DateTime, Duration
 
@@ -100,6 +91,14 @@ public class EventController {
     public ResponseEntity<EventDto> updateEvent(@RequestParam long eventId, @RequestBody EventDto updatedEventDto) {
         EventDto dto = eventService.updateEvent(eventId, updatedEventDto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
+
+    }
+
+    // Displays First name, Last name, daily attendees count by date
+    @GetMapping("/dailyattendeescount")
+    public List<Object[]> getEventsCountByUserAndDateInRange(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                                             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return eventService.getEventsCountByUserAndDateInRange(startDate, endDate);
 
     }
 
